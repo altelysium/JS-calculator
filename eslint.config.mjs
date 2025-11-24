@@ -11,10 +11,7 @@ export default defineConfig([
     languageOptions: { globals: globals.browser },
   },
   {
-    ignores: [
-      "dist/**",
-      "webpack.config.js"
-    ]
+    ignores: ["dist/**", "webpack.config.js"],
   },
   eslintConfigPrettier,
 ]);
