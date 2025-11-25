@@ -1,0 +1,36 @@
+{
+  "devDependencies": {
+    "@eslint/js": "^9.39.1",
+    "css-loader": "^7.1.2",
+    "eslint": "^9.39.1",
+    "eslint-config-prettier": "^10.1.8",
+    "gh-pages": "^6.3.0",
+    "globals": "^16.5.0",
+    "html-webpack-plugin": "^5.6.5",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.2.7",
+    "prettier": "3.6.2",
+    "style-loader": "^4.0.0",
+    "webpack": "^5.103.0",
+    "webpack-cli": "^6.0.1",
+    "webpack-dev-server": "^5.2.2"
+  },
+  "homepage": "https://altelysium.github.io/JS-calculator",
+  "scripts": {
+    "build": "webpack --mode production",
+    "serve": "webpack serve --open --mode development",
+    "lint": "eslint src",
+    "lint:fix": "eslint src --fix",
+    "prettier": "prettier . --write",
+    "prepare": "husky",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
+  },
+  "lint-staged": {
+    "src/**/*.js": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "src/**/*.{css,html,json}": "prettier --write --ignore-unknown"
+  }
+}

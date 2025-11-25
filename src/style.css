@@ -1,0 +1,121 @@
+body {
+  font-size: 24px;
+  line-height: 28px;
+  font-family: Verdana, Tahoma, sans-serif;
+  color: var(--main__color);
+  background-color: var(--main__bg);
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.header__title {
+  font-size: 3em;
+  line-height: 1em;
+  font-weight: 700;
+}
+
+.calculator {
+  margin: 0 auto;
+  padding-top: 15px;
+  max-width: 400px;
+  background-color: var(--calc__bg);
+  border-radius: 25px;
+}
+
+.calculator__switch-modes {
+  margin: 0 auto 50px auto;
+  max-width: 92px;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  border-radius: 15px;
+  background-color: var(--secondary__bg);
+}
+
+.calculator__expression {
+  height: 1em;
+  font-size: 1em;
+  text-align: right;
+  width: 90%;
+  padding: 0 5%;
+}
+
+.calculator__input {
+  display: block;
+  width: 90%;
+  font-size: 3em;
+  padding: 0 5%;
+  margin-bottom: 25px;
+  border: 0;
+  text-align: right;
+  background-color: var(--calc__bg);
+  color: var(--main__color);
+}
+
+.calculator__input_complex {
+  font-size: 1.8em;
+  height: 82px;
+}
+
+.calculator__input:focus {
+  outline: none;
+}
+
+.calculator__buttons {
+  padding: 25px 0;
+  display: grid;
+  grid-template-columns: 75px 75px 75px 75px;
+  grid-gap: 20px;
+  justify-content: center;
+  background-color: var(--secondary__bg);
+  border-radius: 15px;
+}
+
+.button {
+  cursor: pointer;
+}
+
+.button_switch-modes {
+  background-color: inherit;
+  border: 0;
+}
+
+.button_calculator {
+  font-size: 1em;
+  font-weight: 500;
+  background-color: var(--buttons__bg);
+  color: var(--main__color);
+  height: 75px;
+  border: 0;
+  border-radius: 15px;
+}
+
+.button_calculator:hover {
+  background-color: var(--main__bg);
+}
+
+.button_calculator-operator {
+  color: var(--secondary__color);
+}
+
+:root {
+  --main__bg: #eeeeee;
+  --calc__bg: #ffffff;
+  --secondary__bg: #f7f7f7;
+  --buttons__bg: #f3f3f3;
+  --main__color: #000000;
+  --secondary__color: #f16f67;
+}
+
+.dark {
+  --main__bg: #11141c;
+  --calc__bg: #22252d;
+  --secondary__bg: #292c35;
+  --buttons__bg: #262a2f;
+  --main__color: #ffffff;
+  --secondary__color: #f16f67;
+}
