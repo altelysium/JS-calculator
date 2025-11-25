@@ -43,7 +43,6 @@ export function tokenize(expression) {
   }
 
   if (currentIteration) tokens.push(currentIteration);
-  console.log(tokens);
   return tokens;
 }
 
@@ -75,7 +74,6 @@ export function convertToRPN(tokens) {
     }
     stack.push(token);
   }
-  console.log(rpn.concat(stack));
   return rpn.concat(stack.reverse());
 }
 

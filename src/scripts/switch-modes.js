@@ -7,8 +7,6 @@ export function toggleModes(e) {
 function changeIconsColor() {
   const icons = document.querySelectorAll(".icon");
   if (document.documentElement.className === "dark") {
-    console.log(icons);
-
     icons.forEach((icon) => {
       icon.setAttribute("stroke", "#000000");
     });

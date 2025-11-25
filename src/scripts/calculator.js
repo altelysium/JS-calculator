@@ -44,7 +44,6 @@ export class Calculator {
   }
 
   toggleUnaryOperator() {
-    console.log(this.currentNumber);
     if (this.currentNumber !== "") {
       if (this.currentNumber[1] === "-") {
         this.currentNumber = this.currentNumber.slice(2, -1);
@@ -59,7 +58,6 @@ export class Calculator {
       }
     }
     this.changeFontSize();
-    console.log(this.currentNumber);
   }
 
   clear() {
