@@ -1,11 +1,13 @@
 import "./reset.css";
 import "./style.css";
 import { Calculator } from "./scripts/calculator";
+import { toggleModes } from "./scripts/switch-modes";
 
 const input = document.querySelector(".calculator__input");
 const calculator = new Calculator(input);
 
 function addCalculatorButtonListeners() {
+  const modeButtons = document.querySelectorAll(".button_switch-modes");
   const buttons = document.querySelectorAll(".button_calculator");
   buttons.forEach((button) => {
     if (button.innerText === "AC") {
@@ -34,6 +36,9 @@ function addCalculatorButtonListeners() {
         calculator.addDigit(button.innerText),
       );
     }
+  });
+  modeButtons.forEach((button) => {
+    button.addEventListener("click", toggleModes);
   });
 }
 addCalculatorButtonListeners();
