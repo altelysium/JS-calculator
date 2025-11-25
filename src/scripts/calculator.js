@@ -1,0 +1,76 @@
+import { convertToRPN, tokenize, evaluateRPN, operators } from "./RPN";
+let previousExpression = document.querySelector(".calculator__expression");
+
+export class Calculator {
+  constructor(input) {
+    this.input = input;
+  }
+  currentNumber = "";
+  previousNumber = "";
+  result = "";
+
+  addDigit(number) {
+    if (this.result !== "") {
+      this.result = "";
+      this.input.value = "";
+      previousExpression.innerText = "";
+    }
+    this.currentNumber += number;
+    this.input.value += number;
+  }
+
+  addOperator(operator) {
+    if (this.result !== "") {
+      this.result = "";
+      previousExpression.innerText = "";
+    }
+    if (this.input.value === "") {
+      this.input.value += "0" + operator;
+    }
+    if (operators[this.input.value.at(-1)]) {
+      this.input.value = this.input.value.slice(0, -1) + operator;
+    } else {
+      this.input.value += operator;
+    }
+    previousExpression.innerText = "";
+    this.previousNumber = this.currentNumber;
+    this.currentNumber = "";
+  }
+
+  toggleUnaryOperator() {
+    console.log(this.currentNumber);
+
+    if (this.currentNumber[1] === "-") {
+      this.currentNumber = this.currentNumber.slice(2, -1);
+      this.input.value =
+        this.input.value.slice(0, -this.currentNumber.length - 3) +
+        this.currentNumber;
+    } else {
+      this.currentNumber = `(-${this.currentNumber})`;
+      this.input.value =
+        this.input.value.slice(0, -this.currentNumber.length + 3) +
+        this.currentNumber;
+    }
+    console.log(this.currentNumber);
+  }
+
+  clear() {
+    this.input.value = "";
+    this.currentNumber = "";
+    this.previousNumber = "";
+    previousExpression.innerText = "";
+  }
+
+  deleteLastCharacter() {
+    this.currentNumber.length === 0
+      ? (this.currentNumber = this.previousNumber)
+      : (this.currentNumber = this.currentNumber.slice(0, -1));
+    this.input.value = this.input.value.slice(0, -1);
+  }
+
+  calculate() {
+    previousExpression.innerText = this.input.value;
+    this.result = evaluateRPN(convertToRPN(tokenize(this.input.value)));
+    return (this.input.value = this.result);
+  }
+}
