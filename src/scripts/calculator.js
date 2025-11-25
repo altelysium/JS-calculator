@@ -70,10 +70,22 @@ export class Calculator {
 
   deleteLastCharacter() {
     this.changeFontSize();
-    this.currentNumber.length === 0
-      ? (this.currentNumber = this.previousNumber)
-      : (this.currentNumber = this.currentNumber.slice(0, -1));
-    this.input.value = this.input.value.slice(0, -1);
+    if (this.currentNumber.includes("-")) {
+      if (this.currentNumber.length > 4) {
+        this.currentNumber = `${this.currentNumber.slice(0, -2)})`;
+        this.input.value =
+          this.input.value.slice(0, -this.currentNumber.length - 1) +
+          this.currentNumber;
+      } else {
+        this.currentNumber = "";
+        this.input.value = this.input.value.slice(0, -4);
+      }
+    } else {
+      this.currentNumber.length === 0
+        ? (this.currentNumber = this.previousNumber)
+        : (this.currentNumber = this.currentNumber.slice(0, -1));
+      this.input.value = this.input.value.slice(0, -1);
+    }
     this.changeFontSize();
   }
 
