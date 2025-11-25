@@ -10,7 +10,7 @@ export class Calculator {
   result = "";
 
   addDigit(number) {
-    if (this.input.value.at(-1) !== ")") {
+    if (this.input.value.at(-1) !== ")" && this.input.value.length < 15) {
       if (this.result !== "") {
         this.result = "";
         this.input.value = "";
@@ -23,22 +23,24 @@ export class Calculator {
   }
 
   addOperator(operator) {
-    if (this.result !== "") {
-      this.result = "";
+    if (this.input.value.length < 15) {
+      if (this.result !== "") {
+        this.result = "";
+        previousExpression.innerText = "";
+      }
+      if (this.input.value === "") {
+        this.input.value += "0" + operator;
+      }
+      if (operators[this.input.value.at(-1)]) {
+        this.input.value = this.input.value.slice(0, -1) + operator;
+      } else {
+        this.input.value += operator;
+      }
       previousExpression.innerText = "";
+      this.previousNumber = this.currentNumber;
+      this.currentNumber = "";
+      this.changeFontSize();
     }
-    if (this.input.value === "") {
-      this.input.value += "0" + operator;
-    }
-    if (operators[this.input.value.at(-1)]) {
-      this.input.value = this.input.value.slice(0, -1) + operator;
-    } else {
-      this.input.value += operator;
-    }
-    previousExpression.innerText = "";
-    this.previousNumber = this.currentNumber;
-    this.currentNumber = "";
-    this.changeFontSize();
   }
 
   toggleUnaryOperator() {
@@ -101,7 +103,9 @@ export class Calculator {
     if (!operators[this.input.value.at(-1)]) {
       previousExpression.innerText = this.input.value;
       this.result = evaluateRPN(convertToRPN(tokenize(this.input.value)));
-      this.input.value = this.result;
+      String(this.result).length < 15
+        ? (this.input.value = this.result)
+        : (this.input.value = String(this.result).slice(0, 15));
       this.currentNumber = this.result;
       this.changeFontSize();
       return this.input.value;
