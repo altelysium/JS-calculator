@@ -22,7 +22,10 @@ function addCalculatorButtonListeners() {
         "click",
         calculator.toggleUnaryOperator.bind(calculator),
       );
-    } else if (Number.isNaN(Number(button.innerText))) {
+    } else if (
+      Number.isNaN(Number(button.innerText)) &&
+      button.innerText !== "."
+    ) {
       button.addEventListener("click", () =>
         calculator.addOperator(button.innerText),
       );

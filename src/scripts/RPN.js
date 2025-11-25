@@ -76,7 +76,7 @@ export function convertToRPN(tokens) {
     stack.push(token);
   }
   console.log(rpn.concat(stack));
-  return rpn.concat(stack);
+  return rpn.concat(stack.reverse());
 }
 
 export function evaluateRPN(tokens) {

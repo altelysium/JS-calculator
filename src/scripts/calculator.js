@@ -10,13 +10,16 @@ export class Calculator {
   result = "";
 
   addDigit(number) {
-    if (this.result !== "") {
-      this.result = "";
-      this.input.value = "";
-      previousExpression.innerText = "";
+    if (this.input.value.at(-1) !== ")") {
+      if (this.result !== "") {
+        this.result = "";
+        this.input.value = "";
+        previousExpression.innerText = "";
+      }
+      this.currentNumber += number;
+      this.input.value += number;
     }
-    this.currentNumber += number;
-    this.input.value += number;
+    this.changeFontSize();
   }
 
   addOperator(operator) {
@@ -35,22 +38,25 @@ export class Calculator {
     previousExpression.innerText = "";
     this.previousNumber = this.currentNumber;
     this.currentNumber = "";
+    this.changeFontSize();
   }
 
   toggleUnaryOperator() {
     console.log(this.currentNumber);
-
-    if (this.currentNumber[1] === "-") {
-      this.currentNumber = this.currentNumber.slice(2, -1);
-      this.input.value =
-        this.input.value.slice(0, -this.currentNumber.length - 3) +
-        this.currentNumber;
-    } else {
-      this.currentNumber = `(-${this.currentNumber})`;
-      this.input.value =
-        this.input.value.slice(0, -this.currentNumber.length + 3) +
-        this.currentNumber;
+    if (this.currentNumber !== "") {
+      if (this.currentNumber[1] === "-") {
+        this.currentNumber = this.currentNumber.slice(2, -1);
+        this.input.value =
+          this.input.value.slice(0, -this.currentNumber.length - 3) +
+          this.currentNumber;
+      } else {
+        this.currentNumber = `(-${this.currentNumber})`;
+        this.input.value =
+          this.input.value.slice(0, -this.currentNumber.length + 3) +
+          this.currentNumber;
+      }
     }
+    this.changeFontSize();
     console.log(this.currentNumber);
   }
 
@@ -59,18 +65,34 @@ export class Calculator {
     this.currentNumber = "";
     this.previousNumber = "";
     previousExpression.innerText = "";
+    this.changeFontSize();
   }
 
   deleteLastCharacter() {
+    this.changeFontSize();
     this.currentNumber.length === 0
       ? (this.currentNumber = this.previousNumber)
       : (this.currentNumber = this.currentNumber.slice(0, -1));
     this.input.value = this.input.value.slice(0, -1);
+    this.changeFontSize();
+  }
+
+  changeFontSize() {
+    if (this.input.value.length > 7) {
+      this.input.classList.add("calculator__input_complex");
+    } else {
+      this.input.classList.remove("calculator__input_complex");
+    }
   }
 
   calculate() {
-    previousExpression.innerText = this.input.value;
-    this.result = evaluateRPN(convertToRPN(tokenize(this.input.value)));
-    return (this.input.value = this.result);
+    if (!operators[this.input.value.at(-1)]) {
+      previousExpression.innerText = this.input.value;
+      this.result = evaluateRPN(convertToRPN(tokenize(this.input.value)));
+      this.input.value = this.result;
+      this.currentNumber = this.result;
+      this.changeFontSize();
+      return this.input.value;
+    }
   }
 }
